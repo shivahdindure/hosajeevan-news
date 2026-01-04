@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="kn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article - ಹೊಸ ಜೀವನ</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="article.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;500;600;700&family=Noto+Serif+Kannada:wght@600&display=swap"
+      rel="stylesheet" />
+    <meta
+      property="og:title"
+      id="metaTitle"
+      content="ಹೊಸ ಜೀವನ - Kannada News" />
+    <meta
+      property="og:description"
+      id="metaDesc"
+      content="Read the latest Kannada news here." />
+    <meta property="og:image" id="metaImage" content="banner.jpg" />
+    <meta property="og:url" content="https://hosajeevannews.web.app/" />
+    <meta property="og:type" content="article" />
+  </head>
+  <body>
+    <div class="breaking-news">
+      <span class="breaking-title">Breaking</span>
+      <div class="breaking-container">
+        <div class="breaking-track" id="breakingNews"></div>
+      </div>
+    </div>
+
+    <header>
+      <div class="container">
+        <div class="logo-wrapper">
+          <a href="index.html"
+            ><img class="logo-img" src="banner.jpg" alt="Logo"
+          /></a>
+        </div>
+      </div>
+    </header>
+
+    <nav class="navbar">
+      <div class="container">
+        <ul>
+          <li><a href="index.html" data-category="home">Home</a></li>
+          <li><a href="#" data-category="politics">Politics</a></li>
+          <li><a href="#" data-category="education">Education</a></li>
+          <li><a href="#" data-category="religious">Religious</a></li>
+          <li><a href="#" data-category="entertainment">Entertainment</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="editor-section">
+      <div class="container">
+        <h3 id="editor">Editor: HANAMANTHARAY DINDURE</h3>
+      </div>
+    </section>
+
+    <div class="article-wrapper">
+      <div class="container">
+        <div class="article-layout">
+          <article class="article-main">
+            <div id="articleHeroImage" class="article-hero-image"></div>
+            <div class="article-header">
+              <div class="article-meta">
+                <span class="article-category" id="articleCategory"
+                  >Loading...</span
+                >
+                <span class="article-date" id="articleDate">Loading...</span>
+              </div>
+              <h1 class="article-title" id="articleTitle">
+                Loading article...
+              </h1>
+              <div class="article-author">
+                By <strong id="articleAuthor">Author</strong>
+              </div>
+            </div>
+
+            <div class="article-body" id="articleBody">
+              <p>Loading content...</p>
+            </div>
+
+            <div class="ad-inline" id="adInlineContent"></div>
+
+            <div class="share-section">
+              <h3 class="share-title">Share this article</h3>
+              <div class="share-buttons">
+                <button class="share-btn whatsapp" onclick="shareWhatsApp()">
+                  WhatsApp
+                </button>
+                <button class="share-btn facebook" onclick="shareFacebook()">
+                  Facebook
+                </button>
+                <button class="share-btn twitter" onclick="shareTwitter()">
+                  X
+                </button>
+                <button class="share-btn copy-link" onclick="copyLink()">
+                  Copy Link
+                </button>
+              </div>
+            </div>
+
+            <section class="related-articles">
+              <h2>You Might Also Like</h2>
+              <div id="relatedArticles" class="related-grid"></div>
+            </section>
+          </article>
+
+          <aside class="article-sidebar">
+            <div class="sidebar-widget">
+              <h3 class="widget-title">🔥 Trending Now</h3>
+              <div id="trendingArticles" class="trending-list"></div>
+            </div>
+            <div id="adArticleSidebar1" class="ad-sidebar-square"></div>
+            <div id="adArticleSidebar2" class="ad-sidebar-square"></div>
+            <div class="ads-container" id="adsContainer"></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <h3>About</h3>
+            <p>Latest Kannada news portal.</p>
+          </div>
+          <div>
+            <h3>Our Visitors</h3>
+            <div class="visitor-box">
+              👤 Today: <span id="visitorsToday">0</span><br />
+              👤 Yesterday: <span id="visitorsYesterday">0</span><br />
+              👤 Last 7 Days: <span id="visitors7days">0</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom"><p>Web Designed by SHIVARAJ DINDURE</p></div>
+      </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="article.js"></script>
+  </body>
+</html>

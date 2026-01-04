@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NewsHub Admin Panel</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div class="admin-logo">ಹೊಸ ಜೀವನ Admin</div>
+      <nav class="admin-nav">
+        <button onclick="logout()">Logout</button>
+        <button onclick="previewSite()">Preview Site</button>
+      </nav>
+    </header>
+
+    <div class="main-container">
+      <aside class="sidebar">
+        <div
+          class="sidebar-item active"
+          onclick="showSection('dashboard', this)">
+          📊 Dashboard
+        </div>
+        <div class="sidebar-item" onclick="showSection('articles', this)">
+          📰 Manage Articles
+        </div>
+        <div class="sidebar-item" onclick="showSection('add-article', this)">
+          ➕ Add New Article
+        </div>
+        <div class="sidebar-item" onclick="showSection('trending', this)">
+          🔥 Trending Topics
+        </div>
+        <div class="sidebar-item" onclick="showSection('ads', this)">
+          📢 Manage Ads
+        </div>
+        <div class="sidebar-item" onclick="showSection('settings', this)">
+          ⚙️ Settings
+        </div>
+      </aside>
+
+      <main class="content-area">
+        <section id="dashboard" class="section active">
+          <h2>📊 Dashboard Overview</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number" id="totalArticles">0</div>
+              <div>Total Articles</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="publishedArticles">0</div>
+              <div>Published</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="draftArticles">0</div>
+              <div>Drafts</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="totalViews">0</div>
+              <div>Total Views</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="articles" class="section">
+          <h2>📰 Manage Articles</h2>
+          <div class="card">
+            <div class="table-controls">
+              <input
+                type="text"
+                id="searchArticles"
+                placeholder="Search articles..."
+                onkeyup="filterArticles()" />
+              <select id="filterStatus" onchange="filterArticles()">
+                <option value="">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+            <div class="table-container">
+              <table class="news-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Views</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="articlesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="add-article" class="section">
+          <h2>➕ Add New Article</h2>
+          <div class="card">
+            <form id="articleForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="articleTitle">Title *</label>
+                  <input type="text" id="articleTitle" name="title" required />
+                </div>
+                <div class="form-group">
+                  <label for="articleCategory">Category *</label>
+                  <select id="articleCategory" name="category" required>
+                    <option value="">Select category...</option>
+                    <option value="Education">Education</option>
+                    <option value="Politics">Politics</option>
+                    <option value="Religious">Religious</option>
+                    <option value="Health">Health</option>
+                    <option value="Business">Business</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="articleSummary">Summary *</label>
+                <textarea
+                  id="articleSummary"
+                  name="summary"
+                  required
+                  maxlength="200"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="articleContent">Content *</label>
+                <textarea
+                  id="articleContent"
+                  name="content"
+                  required
+                  style="min-height: 200px"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Article Image (Cloudinary)</label>
+                <div
+                  style="
+                    display: flex;
+                    gap: 15px;
+                    align-items: center;
+                    background: #f9f9f9;
+                    padding: 15px;
+                    border-radius: 8px;
+                    border: 1px dashed #ccc;
+                  ">
+                  <input
+                    type="file"
+                    id="imageFileInput"
+                    accept="image/*"
+                    onchange="handleImageUpload(this)" />
+                  <span
+                    id="uploadStatusLabel"
+                    style="font-weight: bold; color: #555"
+                    >No file chosen</span
+                  >
+                </div>
+                <input type="hidden" id="articleImage" name="imageUrl" />
+                <div
+                  id="imagePreviewContainer"
+                  style="margin-top: 15px; display: none">
+                  <img
+                    id="imagePreview"
+                    src=""
+                    alt="Preview"
+                    style="
+                      max-width: 250px;
+                      border-radius: 8px;
+                      border: 1px solid #ddd;
+                    " />
+                </div>
+              </div>
+
+              <div class="form-group" id="iconSelectionGroup">
+                <label for="articleIcon"
+                  >Or Choose a Symbol (If no image uploaded)</label
+                >
+                <select
+                  id="articleIcon"
+                  name="icon"
+                  style="font-size: 20px; width: 80px">
+                  <option value="📰">📰</option>
+                  <option value="🌍">🌍</option>
+                  <option value="⚽">⚽</option>
+                  <option value="🎬">🎬</option>
+                  <option value="💡">💡</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="articleAuthor">Author *</label>
+                  <input
+                    type="text"
+                    id="articleAuthor"
+                    name="author"
+                    required />
+                </div>
+                <div class="form-group">
+                  <label for="articleStatus">Status *</label>
+                  <select id="articleStatus" name="status" required>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label
+                  ><input type="checkbox" id="setBreaking" name="breaking" />
+                  Mark as Breaking News</label
+                >
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn">Publish Article</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="saveAsDraft()">
+                  Save as Draft
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section id="ads" class="section">
+          <h2>📢 Manage Advertisements</h2>
+          <div class="card">
+            <form id="adsForm">
+              <div class="form-group">
+                <label for="adImage">Ad Image URL</label>
+                <input
+                  type="url"
+                  id="adImage"
+                  name="image"
+                  placeholder="https://..."
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="adLink">Click-through URL</label>
+                <input
+                  type="url"
+                  id="adLink"
+                  name="link"
+                  placeholder="https://..." />
+              </div>
+              <button type="submit" class="btn">Add Ad</button>
+            </form>
+            <h3>Active Ads</h3>
+            <div id="adsList"></div>
+          </div>
+        </section>
+
+        <section id="trending" class="section">
+          <h2>🔥 Trending Topics</h2>
+          <div class="card">
+            <div class="input-group">
+              <input
+                type="text"
+                id="newTrendingTopic"
+                placeholder="Add topic..." />
+              <button class="btn" onclick="addTrendingTopic()">Add</button>
+            </div>
+            <div
+              id="trendingTopicsList"
+              class="trending-list"
+              style="margin-top: 20px"></div>
+          </div>
+        </section>
+
+        <section id="settings" class="section">
+          <h2>⚙️ Website Settings</h2>
+          <div class="card">
+            <input type="text" id="siteName" placeholder="Site Name" />
+            <input type="text" id="siteTagline" placeholder="Tagline" />
+            <textarea id="siteDescription" placeholder="Description"></textarea>
+            <button
+              class="btn"
+              onclick="saveSettings()"
+              style="margin-top: 10px">
+              Save Settings
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast">
+      <div class="toast-content"><span id="toastMessage"></span></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="admin.js"></script>
+    <script>
+      function showSection(sectionId, el) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => (s.style.display = "none"));
+        document.getElementById(sectionId).style.display = "block";
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((i) => i.classList.remove("active"));
+        if (el) el.classList.add("active");
+      }
+    </script>
+  </body>
+</html>

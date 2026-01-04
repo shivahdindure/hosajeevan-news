@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ಹೊಸ ಜೀವನ - ನಿಮ್ಮ ದೈನಂದಿನ ಸುದ್ದಿ ಮೂಲ</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@600&family=Merriweather:wght@700&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <!-- Logo Wrapper -->
+        <div class="logo-wrapper">
+          <img class="logo-img" src="banner.jpg" alt="Logo" />
+        </div>
+
+        <!-- Search + Navigation Row -->
+        <div class="header-bottom">
+          <!-- Search Bar -->
+          <div class="search-bar">
+            <input type="text" placeholder="Search news..." id="searchInput" />
+            <button class="search-btn" onclick="searchNews()">🔍</button>
+          </div>
+
+          <!-- Navigation Menu -->
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#" data-category="home">Home</a></li>
+            <li><a href="#" data-category="politics">Politics</a></li>
+            <li><a href="#" data-category="education">Education</a></li>
+            <li><a href="#" data-category="religious">Religious</a></li>
+            <li><a href="#" data-category="entertainment">Entertainment</a></li>
+          </ul>
+
+          <!-- Menu Button (Hamburger for mobile) -->
+          <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+      </div>
+    </header>
+    <!-- ========== BREAKING NEWS TICKER ========== -->
+    <div class="breaking-news-container">
+      <div class="container">
+        <div class="breaking-news-wrapper">
+          <div class="breaking-label">
+            <span class="breaking-icon">⚡</span>
+            <span class="breaking-text">BREAKING NEWS</span>
+          </div>
+          <div class="breaking-news-content">
+            <div class="ticker-wrapper" id="breakingNewsTicker">
+              <!-- Breaking news will be loaded here dynamically -->
+              <span class="ticker-item">Loading breaking news...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="main-layout">
+        <!-- ========== LEFT SIDEBAR (ADS & TRENDING) ========== -->
+        <aside class="left-sidebar">
+          <div id="adLeftTop" class="ad-banner ad-vertical"></div>
+
+          <div class="trending-section">
+            <h3 class="sidebar-title">🔥 Trending Now</h3>
+            <div id="trendingList"></div>
+          </div>
+
+          <div id="adLeftBottom" class="ad-banner ad-vertical"></div>
+        </aside>
+
+        <!-- ========== CENTER CONTENT (NEWS GRID) ========== -->
+        <main class="main-content">
+          <div id="adTop" class="ad-banner ad-horizontal ad-slot-top"></div>
+
+          <div class="editor-info">
+            <h3 id="editor">Editor: HANAMANTHARAY DINDURE</h3>
+          </div>
+
+          <section class="news-section">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-grid" id="newsGrid"></div>
+          </section>
+
+          <div id="adMid" class="ad-banner ad-horizontal ad-slot-mid"></div>
+        </main>
+
+        <aside class="right-sidebar">
+          <div class="credit-section">
+            <h3 class="section-title1">
+              <p id="credit">Web Designed By</p>
+              <p id="credit">SHIVARAJ DINDURE</p>
+            </h3>
+          </div>
+
+          <div
+            id="adSidebar"
+            class="ad-banner ad-vertical ad-slot-sidebar"></div>
+
+          <div class="ads-container" id="adsContainer"></div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCPRewTIqKATawCsZjT9BcenXD6aCtiRcY",
+        authDomain: "hosajeevannews.firebaseapp.com",
+        projectId: "hosajeevannews",
+        storageBucket: "hosajeevannews.appspot.com",
+        messagingSenderId: "253061123621",
+        appId: "1:253061123621:web:b44143a03334db521bb9cc",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // 🔹 Mobile menu toggle
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("show");
+      }
+
+      // 🔹 Open article in new tab
+      function openArticleInNewTab(id) {
+        window.open(`article.html?id=${id}`, "_blank");
+      }
+    </script>
+
+    <!-- Your site logic -->
+    <script src="script.js"></script>
+  </body>
+</html>
