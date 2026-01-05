@@ -1,12 +1,21 @@
 const admin = require("firebase-admin");
 
 if (!admin.apps.length) {
+  // Safe check for environment variables
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+  if (!privateKey) {
+    console.error(
+      "CRITICAL ERROR: FIREBASE_PRIVATE_KEY is missing from Netlify env vars!"
+    );
+  }
+
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      // The private key needs regex to handle newline characters correctly in Netlify
-      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      // Use optional chaining (?.) and a fallback to prevent the 'replace' crash
+      privateKey: privateKey ? privateKey.replace(/\\n/g, "\n") : undefined,
     }),
   });
 }
