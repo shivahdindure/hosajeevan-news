@@ -183,7 +183,9 @@ function loadRelatedArticles(id, cat) {
 // ======== SHARE & TRACKING ========
 function shareWhatsApp() {
   const title = document.getElementById("articleTitle").textContent;
+  // Construct the share URL using the /share path
   const shareUrl = `${window.location.origin}/share?id=${articleId}`;
+
   const text = encodeURIComponent(`${title}\n${shareUrl}`);
   window.open(`https://wa.me/?text=${text}`, "_blank");
 }
