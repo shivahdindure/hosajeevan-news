@@ -2,7 +2,6 @@
   publish = "."
   functions = "netlify/functions"
 
-# This redirects the WhatsApp share requests to your function
 [[redirects]]
   from = "/share"
   to = "/.netlify/functions/share"
